@@ -1,0 +1,82 @@
+name: .verify-policy
+
+# env:
+#   DEBUG: "true"
+
+on:
+  workflow_call:
+    secrets: 
+      scribe-client-id:
+        required: false
+      scribe-client-secret:
+        required: false
+      SUPERSET_USERNAME:
+        required: false
+      SUPERSET_PASSWORD:
+        required: false
+    inputs:
+      target:
+        type: string
+        required: true
+      app-name:
+        type: string
+        required: false
+        default: ''
+      app-version:
+        type: string
+        required: false
+      config:
+        type: string
+        required: false
+        default: .valint.yaml
+      wait:
+        type: string
+        required: false
+        default: "0s"
+
+jobs:
+  app-policy:
+    name: Verify Policy
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: PATCH superset
+        run: |
+          sed -i 's/SUPERSET_USERNAME/${{ secrets.SUPERSET_USERNAME }}/g' .valint.yaml
+          sed -i 's/SUPERSET_PASSWORD/${{ secrets.SUPERSET_PASSWORD }}/g' .valint.yaml
+          cat .valint.yaml
+
+
+      - name: Set Scribe Enable
+        run: |
+          if [ "${{ secrets.scribe-client-id }}" == "" ]; then
+            echo "Scribe is disabled"
+            echo "SCRIBE_ENABLE=false" >> "${GITHUB_ENV}"
+          else
+            echo "Scribe is enabled"
+            echo "SCRIBE_ENABLE=true" >> "${GITHUB_ENV}"
+          fi
+
+      - name: Processing
+        run: sleep ${{ inputs.wait }}
+        shell: bash
+
+      - name: Verify target policy
+        uses: scribe-security/action-verify@dev
+        with:
+           target: ${{ inputs.target }}
+           product-key: ${{ github.repository }}
+           scribe-client-id: ${{ secrets.scribe-client-id }}
+           scribe-client-secret: ${{ secrets.scribe-client-secret }}
+           input-format: attest
+           app-name: ${{ inputs.app-name }}
+           app-version:  ${{ inputs.app-version ||  github.run_number }}
+           config: ${{ inputs.config }}

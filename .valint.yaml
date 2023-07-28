@@ -1,0 +1,110 @@
+scribe:
+  auth:
+    login-url: https://scribe-hub-production.us.auth0.com
+    grant-type: client_credentials
+    enable: true
+    audience: api.production.scribesecurity.com
+  url: https://airflow.scribesecurity.com
+  enable: true
+attest:
+  cocosign:
+    policies:
+    - enable: true
+      name: marsh-policy
+      modules:
+      - enable: true
+        type: verify-artifact
+        name: superset-policy
+        input:
+          format: attest-cyclonedx-json
+          signed: true
+          rego:
+            args:
+              superset:
+                username: SUPERSET_USERNAME
+                password: SUPERSET_PASSWORD
+                env: dev
+                licences:
+                  max: 10
+                cve:
+                  max: 0
+                unmaintained:
+                  max: 0
+                images:
+                  max: 2
+                # licences:
+                #   max: 2
+                # cve:
+                #   max: 466
+                # unmaintained:
+                #   max: 34
+                # images:
+                #   max: 2
+            # script: |
+            #   package verify
+            #   import data.superset.policy as policy
+            #   default allow = false
+
+            #   verify = v {
+            #     v := {
+            #       "allow": allow,
+            #       "violation": violation,
+            #       "errors": errors,
+            #       "summary": summary,
+            #     }
+            #   }
+
+            #   allow  {
+            #     policy.unmaintained.allow
+            #     policy.cve.allow
+            #     policy.images.allow
+            #     policy.licences.allow
+            #   }
+
+            #   errors[msg] {
+            #     msg := policy.unmaintained.errors[_]
+            #   }
+
+            #   errors[msg] {
+            #     msg := policy.cve.errors[_]
+            #   }
+
+            #   errors[msg] {
+            #     msg := policy.images.errors[_]
+            #   }
+
+            #   errors[msg] {
+            #     msg := policy.licences.errors[_]
+            #   }
+
+            #   violation[msg] {
+            #     msg := policy.unmaintained.violation[_]
+            #   }
+
+            #   violation[msg] {
+            #     msg := policy.cve.violation[_]
+            #   }
+
+            #   violation[msg] {
+            #     msg := policy.images.violation[_]
+            #   }
+
+            #   violation[msg] {
+            #     msg := policy.licences.violation[_]
+            #   }
+
+            #   summary[msg] {
+            #     msg := policy.unmaintained.summary[_]
+            #   }
+
+            #   summary[msg] {
+            #     msg := policy.cve.summary[_]
+            #   }
+
+            #   summary[msg] {
+            #     msg := policy.images.summary[_]
+            #   }
+
+            #   summary[msg] {
+            #     msg := policy.licences.summary[_]
+            #   }

@@ -1,0 +1,60 @@
+name: create-git-commit-attestation
+
+env:
+  DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
+  IMAGE_NAME: ${{ github.repository }}:${{ github.sha }}
+  AUTH0_DOMAIN: scribe-hub-production.us.auth0.com
+  AUTH0_SCRIBE_SERVICE_AUDIENCE: api.production.scribesecurity.com
+  SCRIBE_API_BASE_URI: https://airflow.scribesecurity.com
+  LOGICAL_APP_NAME: avocado-project
+  AUTHOR_NAME: Guy-Chernobrov
+  AUTHOR_EMAIL: gc@scribesecurity.com
+  AUTHOR_PHONE: 052-9281309
+  SUPPLIER_NAME: Scribe-Security
+  SUPPLIER_URL: www.scribesecurity.com
+  SUPPLIER_EMAIL: info@scribesecurity.com
+  SUPPLIER_PHONE: 001-001-0011
+  
+  
+on:
+  workflow_dispatch:
+
+jobs:
+  checkout-attest-build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      
+             
+      - name: Generate signed SBOM from git
+        uses: scribe-security/action-bom@dev
+        with:
+           target: 'git:.'
+           scribe-enable: true
+           scribe-login-url: https://$AUTH0_DOMAIN
+           scribe-auth-audience: $AUTH0_SCRIBE_SERVICE_AUDIENCE
+           scribe-url: $SCRIBE_API_BASE_URI
+           product-key: ${{ github.repository }}
+           scribe-client-id: ${{ secrets.SCRIBE_DEV_M2M_CLIENT_ID }}
+           scribe-client-secret: ${{ secrets.SCRIBE_DEV_M2M_CLIENT_SECRET }}
+           format: attest
+           components: packages,files,dep 
+           verbose: 2
+           app-name: $LOGICAL_APP_NAME 
+           app-version: ${{github.run_number}}
+           label: is_git_commit
+           author-name: $AUTHOR_NAME
+           author-email: $AUTHOR_EMAIL
+           author-phone: $AUTHOR_PHONE
+           supplier-name: $SUPPLIER_NAME
+           supplier-url: $SUPPLIER_URL
+           supplier-email: $SUPPLIER_EMAIL 
+           supplier-phone: $SUPPLIER_PHONE
+
