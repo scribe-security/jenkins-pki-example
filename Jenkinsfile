@@ -1,8 +1,5 @@
 pipeline {
   agent any
-//  environment {
-//     
-//  }
   environment {
     SCRIBE_PRODUCT_KEY     = credentials('scribe-product-key')
     SCRIBE_CLIENT_ID = credentials('scribe-client-id')
