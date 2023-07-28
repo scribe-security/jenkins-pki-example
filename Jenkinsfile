@@ -11,7 +11,7 @@ pipeline {
     stage('install') {
         steps {
           cleanWs()
-          sh 'curl -sSfL https://get.scribesecurity.com/install.sh  | sh -s -- -t valint | sh -s -- -b ./temp/bin -t gensbom'
+          sh 'curl -sSfL https://get.scribesecurity.com/install.sh  | sh -s -- -t valint | sh -s -- -b ./temp/bin -t valint'
         }
     }
     stage('checkout') {
