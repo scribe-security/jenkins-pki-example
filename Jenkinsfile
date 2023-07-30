@@ -43,7 +43,7 @@ node {
         usernamePassword(credentialsId: 'scribe-auth-id', usernameVariable: 'SCRIBE_CLIENT_ID', passwordVariable: 'SCRIBE_CLIENT_SECRET')
       ]) {
         sh '''
-          valint bom bom mongo-express:1.0.0-alpha.4 \
+          valint bom mongo-express:1.0.0-alpha.4 \
             -o statement \
             --context-type jenkins \
             --output-directory ./scribe/valint \
