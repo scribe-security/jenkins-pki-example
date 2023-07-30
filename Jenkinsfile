@@ -22,7 +22,7 @@ pipeline {
     
     stage('sbom') {
       steps {        
-        withCredentials([usernamePassword(credentialsId: 'scribe-production-auth-id', usernameVariable: 'SCRIBE_CLIENT_ID', passwordVariable: 'SCRIBE_CLIENT_SECRET')]) {
+        withCredentials([usernamePassword( usernameVariable: 'SCRIBE_CLIENT_ID', passwordVariable: 'SCRIBE_CLIENT_SECRET')]) {
         sh '''
             valint bom dir:mongo-express-scm \
             --context-type jenkins \
