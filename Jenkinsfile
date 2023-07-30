@@ -20,12 +20,12 @@ node {
             sh 'git clone -b v1.0.0-alpha.4 --single-branch https://github.com/mongo-express/mongo-express.git mongo-express-scm'
      }
     
-    stage('bom') {
+    stage('bom-git') {
       withCredentials([
         usernamePassword(credentialsId: 'scribe-auth-id', usernameVariable: 'SCRIBE_CLIENT_ID', passwordVariable: 'SCRIBE_CLIENT_SECRET')
       ]) {
         sh '''
-          valint bom dir:mongo-express-scm \
+          valint bom git:mongo-express-scm \
             -o statement \
             --context-type jenkins \
             --output-directory ./scribe/valint \
@@ -38,6 +38,23 @@ node {
       }
     }
 
+    stage('bom-image') {
+      withCredentials([
+        usernamePassword(credentialsId: 'scribe-auth-id', usernameVariable: 'SCRIBE_CLIENT_ID', passwordVariable: 'SCRIBE_CLIENT_SECRET')
+      ]) {
+        sh '''
+          valint bom bom mongo-express:1.0.0-alpha.4 \
+            -o statement \
+            --context-type jenkins \
+            --output-directory ./scribe/valint \
+            -E -U $SCRIBE_CLIENT_ID -P $SCRIBE_CLIENT_SECRET \
+            --app-name $LOGICAL_APP_NAME --app-version $APP_VERSION  \
+            --author-name $AUTHOR_NAME --author-email AUTHOR_EMAIL --author-phone $AUTHOR_PHONE  \
+            --supplier-name $SUPPLIER_NAME --supplier-url $SUPPLIER_URL --supplier-email $SUPPLIER_EMAIL  \
+            --supplier-phone $SUPPLIER_PHONE \
+            -f '''
+      }
+    }
 
   }
 }
