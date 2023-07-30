@@ -26,7 +26,7 @@ node {
         usernamePassword(credentialsId: 'scribe-production-auth-id', usernameVariable: 'SCRIBE_CLIENT_ID', passwordVariable: 'SCRIBE_CLIENT_SECRET')
       ]) {
         sh '''
-          valint bom git:mongo-express-scm \
+          valint bom git:jenkins-pki-example \
             -o statement \
             --context-type jenkins \
             --output-directory ./scribe/valint \
