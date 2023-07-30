@@ -11,7 +11,7 @@ attest:
         signer:
             x509:
                 enable: true
-                private: env://SIGN_KEY
+                private: SIGN_KEY
         verifier:
             x509:
                 enable: true
