@@ -7,7 +7,16 @@ scribe:
   url: https://airflow.scribesecurity.com
   enable: true
 attest:
-  cocosign:
+    cocosign:
+        signer:
+            x509:
+                enable: true
+                private: ./cocosign/keys/private/default.pem
+        verifier:
+            x509:
+                enable: true
+                cert: ./cocosign/keys/public/cert.pem
+                ca: ./cocosign/keys/public/ca.pem
     policies:
     - enable: true
       name: marsh-policy
