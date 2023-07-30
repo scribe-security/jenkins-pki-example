@@ -29,7 +29,7 @@ node {
         string(credentialsId: 'signing-key', variable: 'SIGN_KEY')
       ]) {
         sh '''
-          $SIGN_KEY
+          {$SIGN_KEY} 
           valint bom git:jenkins-pki-example \
             --config jenkins-pki-example/.valint.yaml \
             -o attest \
