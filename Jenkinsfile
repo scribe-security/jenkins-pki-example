@@ -9,8 +9,8 @@ node {
     "SUPPLIER_NAME=Scribe-Security",
     "SUPPLIER_URL=www.scribesecurity.com",
     "SUPPLIER_EMAIL=info@scribesecurity.com",
-    "SUPPLIER_PHONE=001-001-0011",
-    "SIGN_KEY=-----BEGIN PRIVATE KEY-----\nMIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgQzfULkVnFNRMv5OH\n2RzdFLEfxEmMVbG8wLshGdqv6KChRANCAAT31sSk35XDRksFkyPsV6gmpu3hdom9\n+zT1odUI7JmymZyDkezSr6I3E9+nlr4zTYGW56jMqdw+3SrirGP96NVA\n-----END PRIVATE KEY-----"
+    "SUPPLIER_PHONE=001-001-0011"
+    
     
   ]) {
     stage('install') {
@@ -26,7 +26,7 @@ node {
     stage('bom-git') {
       withCredentials([
         usernamePassword(credentialsId: 'scribe-production-auth-id', usernameVariable: 'SCRIBE_CLIENT_ID', passwordVariable: 'SCRIBE_CLIENT_SECRET')
-
+        string(credentialsId: 'signing-key', variable: 'SIGN_KEY')
       ]) {
         sh '''
           echo $SIGN_KEY
