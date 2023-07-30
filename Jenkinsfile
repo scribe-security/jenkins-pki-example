@@ -26,8 +26,9 @@ node {
         usernamePassword(credentialsId: 'scribe-production-auth-id', usernameVariable: 'SCRIBE_CLIENT_ID', passwordVariable: 'SCRIBE_CLIENT_SECRET')
       ]) {
         sh '''
-          cd jenkins-pki-example; \
+          
           valint bom git:jenkins-pki-example \
+            --config jenkins-pki-example/.valint.yaml
             -o attest \
             --context-type jenkins \
             --output-directory ./scribe/valint \
