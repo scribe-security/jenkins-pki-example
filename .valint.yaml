@@ -11,7 +11,7 @@ attest:
         signer:
             x509:
                 enable: true
-                private: ./cocosign/keys/private/default.pem
+                private: ${SIGNING_KEY}
         verifier:
             x509:
                 enable: true
