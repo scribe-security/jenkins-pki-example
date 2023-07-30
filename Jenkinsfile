@@ -16,10 +16,8 @@ node {
     }
     
     stage('checkout') {
-      steps {
-          sh 'git clone -b v1.0.0-alpha.4 --single-branch https://github.com/mongo-express/mongo-express.git mongo-express-scm'
-      }
-    }
+            sh 'git clone -b v1.0.0-alpha.4 --single-branch https://github.com/mongo-express/mongo-express.git mongo-express-scm'
+     }
     
     stage('bom') {
       withCredentials([
