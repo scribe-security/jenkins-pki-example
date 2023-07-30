@@ -25,10 +25,10 @@ node {
     stage('bom-git') {
       withCredentials([
         usernamePassword(credentialsId: 'scribe-production-auth-id', usernameVariable: 'SCRIBE_CLIENT_ID', passwordVariable: 'SCRIBE_CLIENT_SECRET'),
-        string(credentialsId: 'signing-key', variable: 'SIGN-KEY')
+        string(credentialsId: 'signing-key', variable: 'SIGN_KEY')
       ]) {
         sh '''
-          echo $SIGN-KEY
+          echo $SIGN_KEY
           valint bom git:jenkins-pki-example \
             --config jenkins-pki-example/.valint.yaml \
             -o attest \
