@@ -18,6 +18,7 @@ node {
     
     stage('checkout') {
             sh 'git clone -b main --single-branch https://guycherno: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@github.com/scribe-security/jenkins-pki-example.git'
+            sh 'cd jenkins-pki-example'
             sh 'docker build -t pki-test -f orig-Dockerfile .'
      }
     
