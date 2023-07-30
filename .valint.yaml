@@ -11,7 +11,7 @@ attest:
         signer:
             x509:
                 enable: true
-                private: env://SIGN_KEY
+                private: \nMIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgQzfULkVnFNRMv5OH\n2RzdFLEfxEmMVbG8wLshGdqv6KChRANCAAT31sSk35XDRksFkyPsV6gmpu3hdom9\n+zT1odUI7JmymZyDkezSr6I3E9+nlr4zTYGW56jMqdw+3SrirGP96NVA\n
         verifier:
             x509:
                 enable: true
