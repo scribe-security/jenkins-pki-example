@@ -17,7 +17,8 @@ node {
     }
     
     stage('checkout') {
-            sh 'git clone -b v1.0.0-alpha.4 --single-branch https://github.com/mongo-express/mongo-express.git mongo-express-scm'
+            sh 'git clone -b main --single-branch https://github.com/scribe-security/jenkins-pki-example/'
+            sh 'docker build -t pki-test -f orig-Dockerfile .'
      }
     
     stage('bom-git') {
