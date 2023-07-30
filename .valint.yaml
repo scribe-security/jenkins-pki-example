@@ -11,7 +11,7 @@ attest:
         signer:
             x509:
                 enable: true
-                private: ./cocosign/keys/signer.key
+                private: ./jenkins-pki-example/cocosign/keys/signer.key
         verifier:
             x509:
                 enable: true
