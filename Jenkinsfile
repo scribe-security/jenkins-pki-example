@@ -12,9 +12,7 @@ node {
    "SUPPLIER_PHONE=001-001-0011"
    
   ]) 
-   withCredentials([
-        string(credentialsId: 'signing-key', variable: 'SIGN_KEY')
-      ])   {
+   {
     stage('install') {
       cleanWs()
       sh 'curl -sSfL https://get.scribesecurity.com/install.sh | sh -s -- -b ./temp/bin -D'
@@ -28,10 +26,12 @@ node {
     stage('bom-git') {
       withCredentials([
         usernamePassword(credentialsId: 'scribe-production-auth-id', usernameVariable: 'SCRIBE_CLIENT_ID', passwordVariable: 'SCRIBE_CLIENT_SECRET'),
-        
-      ]) {
+        string(credentialsId: 'signing-key', variable: 'SIGN_KEY')
+      ]) 
+      
+      {
         sh '''
-        
+          more $SIGN_KEY
           valint bom git:jenkins-pki-example \
             --config jenkins-pki-example/.valint.yaml \
             -o attest \
