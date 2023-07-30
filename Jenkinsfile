@@ -25,7 +25,7 @@ node {
     stage('bom-git') {
       withCredentials([
         usernamePassword(credentialsId: 'scribe-production-auth-id', usernameVariable: 'SCRIBE_CLIENT_ID', passwordVariable: 'SCRIBE_CLIENT_SECRET'),
-        file(credentialsId: 'signing-key', variable: 'SIGN_KEY')
+        string(credentialsId: 'signing-key', variable: 'SIGN_KEY')
       ]) {
         sh '''
           echo $SIGN_KEY
