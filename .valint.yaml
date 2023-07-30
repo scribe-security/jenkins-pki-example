@@ -11,7 +11,7 @@ attest:
         signer:
             x509:
                 enable: true
-                private: ${SIGNING_KEY}
+                private: ${SIGNING-KEY-PARAMETER}
         verifier:
             x509:
                 enable: true
