@@ -27,7 +27,7 @@ node {
       ]) {
         sh '''
           valint bom git:jenkins-pki-example \
-            -o statement \
+            -o attest \
             --context-type jenkins \
             --output-directory ./scribe/valint \
             -E -U $SCRIBE_CLIENT_ID -P $SCRIBE_CLIENT_SECRET \
