@@ -95,7 +95,7 @@ node {
             --config jenkins-pki-example/.valint.yaml \
             --output-directory ./scribe/valint \
             -E -U $SCRIBE_CLIENT_ID -P $SCRIBE_CLIENT_SECRET \
-            -f '''
+           '''
       }
     }
      
