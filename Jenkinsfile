@@ -55,11 +55,15 @@ node {
 
     stage('bom-image') {
       withCredentials([
-        usernamePassword(credentialsId: 'scribe-production-auth-id', usernameVariable: 'SCRIBE_CLIENT_ID', passwordVariable: 'SCRIBE_CLIENT_SECRET')
-      ]) {
-        sh '''
+        usernamePassword(credentialsId: 'scribe-production-auth-id', usernameVariable: 'SCRIBE_CLIENT_ID', passwordVariable: 'SCRIBE_CLIENT_SECRET'),
+        file(credentialsId: 'key-file', variable: 'KEY_FILE'),
+        file(credentialsId: 'sig-cert-file', variable: 'SIG_CERT_FILE'),
+        file(credentialsId: 'ca-cert-file', variable: 'CA_CERT_FILE')
+      ])   
+      sh '''
           valint bom pki-test:latest \
-            -o statement \
+            --config jenkins-pki-example/.valint.yaml \
+            -o attest \
             --context-type jenkins \
             --output-directory ./scribe/valint \
             -E -U $SCRIBE_CLIENT_ID -P $SCRIBE_CLIENT_SECRET \
