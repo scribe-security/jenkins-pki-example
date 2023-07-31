@@ -60,6 +60,7 @@ node {
         file(credentialsId: 'sig-cert-file', variable: 'SIG_CERT_FILE'),
         file(credentialsId: 'ca-cert-file', variable: 'CA_CERT_FILE')
       ])   
+      {
       sh '''
           valint bom pki-test:latest \
             --config jenkins-pki-example/.valint.yaml \
