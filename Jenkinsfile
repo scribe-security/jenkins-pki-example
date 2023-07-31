@@ -79,5 +79,25 @@ node {
       }
     }
 
+    stage('bom-image-verify') {
+      withCredentials([
+        usernamePassword(credentialsId: 'scribe-production-auth-id', usernameVariable: 'SCRIBE_CLIENT_ID', passwordVariable: 'SCRIBE_CLIENT_SECRET'),
+        file(credentialsId: 'key-file', variable: 'KEY_FILE'),
+        file(credentialsId: 'sig-cert-file', variable: 'SIG_CERT_FILE'),
+        file(credentialsId: 'ca-cert-file', variable: 'CA_CERT_FILE')
+      ])   
+      {
+      sh '''
+          PRIVATE_KEY=$(cat $KEY_FILE)
+          SIGNING_CERT=$(cat $SIG_CERT_FILE)     
+          CA_CERT=$(cat $CA_CERT_FILE)
+          valint verify pki-test:latest \
+            --config jenkins-pki-example/.valint.yaml \
+            --output-directory ./scribe/valint \
+            -E -U $SCRIBE_CLIENT_ID -P $SCRIBE_CLIENT_SECRET \
+            -f '''
+      }
+    }
+     
   }
 }
