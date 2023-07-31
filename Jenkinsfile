@@ -9,7 +9,8 @@ node {
     "SUPPLIER_NAME=Scribe-Security",
     "SUPPLIER_URL=www.scribesecurity.com",
     "SUPPLIER_EMAIL=info@scribesecurity.com",
-   "SUPPLIER_PHONE=001-001-0011"
+    "SUPPLIER_PHONE=001-001-0011",
+    "PRIVATE_KEY=xxx";
    
   ]) 
    {
@@ -26,12 +27,13 @@ node {
     stage('bom-git') {
       withCredentials([
         usernamePassword(credentialsId: 'scribe-production-auth-id', usernameVariable: 'SCRIBE_CLIENT_ID', passwordVariable: 'SCRIBE_CLIENT_SECRET'),
-        dockerCert(credentialsId: 'sign-cert', keystoreVariable: 'SIGN_KEY')
+        file(credentialsId: 'key-file', keystoreVariable: 'KEY_FILE')
       ]) 
       
       {
         sh '''
-          cat $SIGN_KEY|more
+          cat $KEY_FILE>$PRIVATE_KEY
+          echo $PRIVATE_KEY
           cp jenkins-pki-example/.valint.yaml . 
           valint bom git:jenkins-pki-example \
             -o attest \
