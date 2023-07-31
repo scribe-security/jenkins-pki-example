@@ -19,7 +19,7 @@ attest:
                 ca: env://CA_CERT
     policies:
     - enable: true
-      name: marsh-policy
+      name: demo-policy
       modules:
       - enable: true
         type: verify-artifact
