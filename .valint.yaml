@@ -12,6 +12,8 @@ attest:
             x509:
                 enable: true
                 private: env://PRIVATE_KEY
+                cert: env://SIGNING_CERT
+                ca: env://CA_CERT
         verifier:
             x509:
                 enable: true
