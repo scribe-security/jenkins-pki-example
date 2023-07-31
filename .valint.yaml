@@ -15,8 +15,8 @@ attest:
         verifier:
             x509:
                 enable: true
-                cert: ./cocosign/keys/public/cert.pem
-                ca: ./cocosign/keys/public/ca.pem
+                cert: env://SIGNING_CERT
+                ca: env://CA_CERT
     policies:
     - enable: true
       name: marsh-policy
