@@ -26,7 +26,7 @@ node {
     stage('bom-git') {
       withCredentials([
         usernamePassword(credentialsId: 'scribe-production-auth-id', usernameVariable: 'SCRIBE_CLIENT_ID', passwordVariable: 'SCRIBE_CLIENT_SECRET'),
-        x509ClientCert(credentialsId: 'sign-cert', keystoreVariable: 'SIGN_KEY')
+        dockerCert(credentialsId: 'sign-cert', keystoreVariable: 'SIGN_KEY')
       ]) 
       
       {
