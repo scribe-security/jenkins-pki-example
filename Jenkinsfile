@@ -10,8 +10,8 @@ node {
     "SUPPLIER_URL=www.scribesecurity.com",
     "SUPPLIER_EMAIL=info@scribesecurity.com",
     "SUPPLIER_PHONE=001-001-0011",
-    "PRIVATE_KEY=xxx"
-    "SIGNING_CERT=yyy"
+    "PRIVATE_KEY=xxx",
+    "SIGNING_CERT=yyy",
     "CA_CERT=xxx"
    
   ]) 
