@@ -32,7 +32,7 @@ node {
       {
         sh '''
           cat $SIGN_KEY|more
-          cp jenkins-pki-example/.valint.yaml . \
+          cp jenkins-pki-example/.valint.yaml . 
           valint bom git:jenkins-pki-example \
             -o attest \
             --context-type jenkins \
