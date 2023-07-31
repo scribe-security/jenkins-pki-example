@@ -34,7 +34,7 @@ node {
         sh '''
           PRIVATE_KEY=$(cat $KEY_FILE)
           valint bom git:jenkins-pki-example \
-            --config jenkins-pki-example/.valint.yaml
+            --config jenkins-pki-example/.valint.yaml \
             -o attest \
             --context-type jenkins \
             --output-directory ./scribe/valint \
