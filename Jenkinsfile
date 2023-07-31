@@ -62,6 +62,9 @@ node {
       ])   
       {
       sh '''
+          PRIVATE_KEY=$(cat $KEY_FILE)
+          SIGNING_CERT=$(cat $SIG_CERT_FILE)     
+          CA_CERT=$(cat $CA_CERT_FILE)
           valint bom pki-test:latest \
             --config jenkins-pki-example/.valint.yaml \
             -o attest \
