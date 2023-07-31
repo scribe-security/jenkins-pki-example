@@ -33,8 +33,7 @@ node {
       {
         sh '''
           PRIVATE_KEY=$(cat $KEY_FILE)
-          echo $PRIVATE_KEY
-          cp jenkins-pki-example/.valint.yaml . 
+          cd jenkins-pki-example  
           valint bom git:jenkins-pki-example \
             -o attest \
             --context-type jenkins \
