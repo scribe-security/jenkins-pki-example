@@ -31,7 +31,7 @@ node {
       
       {
         sh '''
-          echo $SIGN_KEY|more
+          cat $SIGN_KEY|more
           valint bom git:jenkins-pki-example \
             --config jenkins-pki-example/.valint.yaml \
             -o attest \
