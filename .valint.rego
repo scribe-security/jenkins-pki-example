@@ -1,67 +1,41 @@
 package verify
 import data.superset.policy as policy
+
 default allow = false
 
-verify = v {
-  v := {
-    "allow": allow,
-    "violation": violation,
-    "errors": errors,
-    "summary": summary,
-  }
-}
-
 allow  {
-  policy.unmaintained.allow
   policy.cve.allow
-  policy.images.allow
-  policy.licences.allow
+  # policy.images.allow
+  # policy.licences.allow
+  # policy.unmaintained.allow
 }
 
-errors[msg] {
-  msg := policy.unmaintained.errors[_]
-}
+errors = [
+  policy.cve.errors,
+  # policy.images.errors,
+  # policy.licences.errors,
+  # policy.unmaintained.errors,
+]
 
-errors[msg] {
-  msg := policy.cve.errors[_]
-}
+violations = [
+  policy.cve.violations,
+  # policy.images.violations,
+  # policy.licences.violations,
+  # policy.unmaintained.violations,
+]
 
-errors[msg] {
-  msg := policy.images.errors[_]
-}
+summary = [
+  policy.cve.summary,
+  # policy.images.summary,
+  # policy.licences.summary,
+  # policy.unmaintained.summary,
+]
 
-errors[msg] {
-  msg := policy.licences.errors[_]
-}
 
-violation[msg] {
-  msg := policy.unmaintained.violation[_]
-}
-
-violation[msg] {
-  msg := policy.cve.violation[_]
-}
-
-violation[msg] {
-  msg := policy.images.violation[_]
-}
-
-violation[msg] {
-  msg := policy.licences.violation[_]
-}
-
-summary[msg] {
-  msg := policy.unmaintained.summary[_]
-}
-
-summary[msg] {
-  msg := policy.cve.summary[_]
-}
-
-summary[msg] {
-  msg := policy.images.summary[_]
-}
-
-summary[msg] {
-  msg := policy.licences.summary[_]
+verify = v {
+        v := {
+        "allow": allow,
+        "violations": violations,
+        "summary": summary,
+    }
 }
