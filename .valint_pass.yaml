@@ -22,8 +22,8 @@ attest:
             path: .valint.rego
             args:
               superset:
-                username: SMZ5qKFXMg7oe6ZmJjRv4BHzxXEKdqmX
-                password: gHXqCS-4TQYoIna6xwIkZ5NUhUdlCHWIymKHVMcshu1u8jqCf_5RIMSRRTl8gpto
+                username: CLIENT_ID
+                password: CLIENT_SECRET
                 licences:
                   max: 500
                 cve:
